@@ -1,0 +1,30 @@
+.typewriter-row {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  overflow: hidden;
+  margin-bottom: 10px; /* Add some space between rows */
+}
+
+.cursor {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0.15em;
+  height: 1em;
+  background-color: black; /* Cursor color */
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.press-any-key {
+  font-size: 16px;
+  margin-top: 20px;
+  display: none; /* Hide by default */
+}

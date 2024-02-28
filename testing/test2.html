@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typewriter Effect</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #typewriter {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  #pressKey {
+    display: none;
+    font-style: italic;
+  }
+  .blink {
+    animation: blink-animation 0.8s infinite;
+  }
+  @keyframes blink-animation {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<div id="typewriter"></div>
+<div id="pressKey">Press any key to continue...<span class="blink">|</span></div>
+<form id="userForm" style="display: none;">
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+  const sentences = ["Hello, welcome to our website.", "We hope you enjoy your stay."];
+  let currentSentence = 0;
+  let currentChar = 0;
+  let isTyping = true;
+
+  function typeWriter() {
+    if (currentChar < sentences[currentSentence].length) {
+      document.getElementById("typewriter").innerHTML += sentences[currentSentence].charAt(currentChar);
+      currentChar++;
+      setTimeout(typeWriter, 50);
+    } else {
+      currentSentence++;
+      currentChar = 0;
+      if (currentSentence < sentences.length) {
+        setTimeout(typeWriter, 1000);
+      } else {
+        document.getElementById("pressKey").style.display = "block";
+        document.addEventListener("keydown", clearOutput);
+      }
+    }
+  }
+
+  function clearOutput() {
+    document.getElementById("typewriter").innerHTML = "";
+    document.getElementById("pressKey").style.display = "none";
+    document.getElementById("userForm").style.display = "block";
+    document.removeEventListener("keydown", clearOutput);
+  }
+
+  typeWriter();
+</script>
+</body>
+</html>
