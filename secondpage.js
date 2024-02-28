@@ -1,5 +1,5 @@
 const newsentences = [
-    "> Please don't key in the details below.",
+    "> Please gay key in the details below.",
 ];
 const topContainer = document.getElementById("typewriter-text-top");
 
