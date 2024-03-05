@@ -66,7 +66,7 @@ function showUserCredentialForm() {
             <label for="additionalInfo">Additional Information:</label>
             <textarea id="additionalInfo" name="additionalInfo" rows="4" required></textarea>
             <br>
-            <button type="submit">Submit</button>
+            <button type="submit" style="background-color: green; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-family: 'VT323'; font-size: 24px;">Submit</button>
         </form>
     `;
     formContainer.appendChild(column);
