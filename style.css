@@ -55,3 +55,76 @@ a{
     }
 }
   
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    max-width: 400px; /* Adjust the width as needed */
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h2{
+    font-family: "VT323", "consolas", sans-serif;
+    text-shadow: 0px 0px 10px green, 0px 0px 5px green;
+    font-size: 30px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: yellow;
+}
+
+label {
+    font-family: "VT323", "consolas", sans-serif;
+    text-shadow: 0px 0px 10px green, 0px 0px 5px green;
+    font-size: 25px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: green;
+}
+
+#user-form input[type="date"]::-webkit-calendar-picker-indicator {
+    /* Change the color to red */
+    filter: invert(20%) sepia(100%) saturate(900%) hue-rotate(90deg) brightness(150%) contrast(100%);
+}
+
+input, textarea {
+    margin-bottom: 20px;
+    padding: 5px;
+    border: 1px solid green;
+    border-radius: 4px;
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    color: green;
+    background-color: #111111;
+}
+
+button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+}
+
+.error {
+    font-family: "VT323", "consolas", sans-serif;
+    font-size: 25px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: red;
+}

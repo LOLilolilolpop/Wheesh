@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheesh - User Credentials Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1><a href="index.html">Wheesh</a></h1>
+
+    <div id="typewriter-text-top" class="typewriter-row"></div>
+
+    <!-- Static HTML for the user credentials form -->
+    <div class="container" id="form-container" style="display:none;">
+        <div class="column">
+            <h2>User Credentials</h2>
+            <form id="user-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:&nbsp</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <br>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+                <br>
+                <label for="additionalInfo">Additional Information:</label>
+                <textarea id="additionalInfo" name="additionalInfo" rows="4" required></textarea>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+            <div id="error-message" class="error" style="display: none;">Data already exists.</div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "wheesh-5361b.firebaseapp.com",
+            projectId: "wheesh-5361b",
+            storageBucket: "wheesh-5361b.appspot.com",
+            messagingSenderId: "411254322061",
+            appId: "1:411254322061:web:2e6306c5533d1f05b803c4",
+            measurementId: "G-VGPD3JHS4J"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(); // Get Firestore instance
+
+        // JavaScript logic for typing animation
+        const newsentences = [
+            "> Please key in the details below.",
+        ];
+        const topContainer = document.getElementById("typewriter-text-top");
+        const formContainer = document.getElementById("form-container");
+        const form = document.getElementById("user-form");
+        const errorMessage = document.getElementById("error-message");
+
+        function showSentence(newsentence, targetContainer) {
+            let Index = 0;
+            const subinterval = setInterval(function() {
+                if (Index < newsentence.length) {
+                    targetContainer.innerHTML += newsentence[Index];
+                    Index++;
+                }
+                else {
+                    clearInterval(subinterval);
+                    if (newsentence === "> Please key in the details below.") {
+                        targetContainer.innerHTML += '<span class="cursor"></span>';
+                        formContainer.style.display = "block";
+                    }
+                }
+            }, 50); // Adjust typing speed here
+        }
+
+        function show() {
+            showSentence(newsentences[0], topContainer);
+        }
+
+        show();
+
+       // Event listeners for input fields to hide the error message on change
+        const inputFields = document.querySelectorAll("#user-form input, #user-form textarea");
+        inputFields.forEach(input => {
+            input.addEventListener("input", () => {
+            errorMessage.style.display = "none";
+        });
+    });
+
+    // JavaScript logic for ensuring date is not before today
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Handle form submission
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form data
+        const username = form.username.value;
+        const password = form.password.value;
+        const email = form.email.value;
+        const phone = form.phone.value;
+        const date = form.date.value;
+        const additionalInfo = form.additionalInfo.value;
+
+        // Check if username already exists
+        db.collection("users").where("email", "==", email).where("additionalInfo", "==", additionalInfo).get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                // Username already exists, display error message
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            // Username does not exist, proceed to add user
+            db.collection("users").add({
+                username: username,
+                password: password,
+                email: email,
+                phone: phone,
+                date: date,
+                additionalInfo: additionalInfo
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                // Optionally, redirect to another page or show a success message
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+                // Handle error
+            });
+        })
+        .catch(function(error) {
+            console.error("Error checking username: ", error);
+            // Handle error
+        });
+    });
+        // Reset all form fields when the page is refreshed
+        window.onload = function() {
+            form.reset();
+        };
+    </script>
+</body>
+</html>

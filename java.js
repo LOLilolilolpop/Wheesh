@@ -30,9 +30,8 @@ function handleKeyDown(event) {
     bottomTextContainer.innerHTML = ""; // Clear content of bottom text container
     document.removeEventListener("keydown", handleKeyDown); // Remove event listener
     
-    const script = document.createElement("script");
-    script.src = "secondpage.js";
-    document.head.appendChild(script);
+    // Redirect to secondpage.html
+    window.location.href = "secondpage.html";
 }
   
 function type() {

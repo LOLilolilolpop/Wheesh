@@ -76,7 +76,5 @@ function showUserCredentialForm() {
 }
 
 
-
-
 show();
 
