@@ -76,11 +76,11 @@ form {
 h2{
     font-family: "VT323", "consolas", sans-serif;
     text-shadow: 0px 0px 10px green, 0px 0px 5px green;
-    font-size: 30px;
+    font-size: 35px;
     overflow: hidden;
     margin-top: 10px;
     margin-left: 10px;
-    color: yellow;
+    color: green;
 }
 
 label {

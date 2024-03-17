@@ -17,14 +17,9 @@
     <!-- Static HTML for the user credentials form -->
     <div class="container" id="form-container" style="display:none;">
         <div class="column">
-            <h2>User Credentials</h2>
+            <h2>User's information</h2>
             <form id="user-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="password">Password:&nbsp</label>
-                <input type="password" id="password" name="password" required>
-                <br>
+
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
                 <br>
@@ -34,7 +29,7 @@
                 <label for="date">Date:</label>
                 <input type="date" id="date" name="date" required>
                 <br>
-                <label for="additionalInfo">Additional Information:</label>
+                <label for="additionalInfo">Message to send:</label>
                 <textarea id="additionalInfo" name="additionalInfo" rows="4" required></textarea>
                 <br>
                 <button type="submit">Submit</button>
@@ -111,8 +106,7 @@
         event.preventDefault(); // Prevent default form submission
 
         // Get form data
-        const username = form.username.value;
-        const password = form.password.value;
+
         const email = form.email.value;
         const phone = form.phone.value;
         const date = form.date.value;
@@ -129,8 +123,6 @@
 
             // Username does not exist, proceed to add user
             db.collection("users").add({
-                username: username,
-                password: password,
                 email: email,
                 phone: phone,
                 date: date,
