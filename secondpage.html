@@ -43,7 +43,7 @@
     <script>
         // Your Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
+            apiKey: "AIzaSyD4ailH_z5oPcYzbWnLknpAbJ9B1scETdg",
             authDomain: "wheesh-5361b.firebaseapp.com",
             projectId: "wheesh-5361b",
             storageBucket: "wheesh-5361b.appspot.com",
@@ -106,31 +106,31 @@
         event.preventDefault(); // Prevent default form submission
 
         // Get form data
-
         const email = form.email.value;
         const phone = form.phone.value;
         const date = form.date.value;
         const additionalInfo = form.additionalInfo.value;
 
-        // Check if username already exists
-        db.collection("users").where("email", "==", email).where("additionalInfo", "==", additionalInfo).get()
+        // Check if user with the same email and additionalInfo already exists
+        db.collection("scheduledEmails").where("email", "==", email).where("message", "==", additionalInfo).get()
         .then((querySnapshot) => {
             if (!querySnapshot.empty) {
-                // Username already exists, display error message
+                // User already exists, display error message
                 errorMessage.style.display = "block";
                 return;
             }
 
-            // Username does not exist, proceed to add user
-            db.collection("users").add({
+            // User does not exist, proceed to add user
+            db.collection("scheduledEmails").add({
                 email: email,
-                phone: phone,
-                date: date,
-                additionalInfo: additionalInfo
+                subject: "A Message From Someone", // Change this to your subject
+                message: additionalInfo, // Assuming the message is the additionalInfo field
+                date: date, 
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
-                // Optionally, redirect to another page or show a success message
+                // Redirect to thankyou.html after successful submission
+                window.location.href = "thankyou.html";
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
@@ -138,14 +138,10 @@
             });
         })
         .catch(function(error) {
-            console.error("Error checking username: ", error);
+            console.error("Error checking user: ", error);
             // Handle error
         });
     });
-        // Reset all form fields when the page is refreshed
-        window.onload = function() {
-            form.reset();
-        };
     </script>
 </body>
 </html>

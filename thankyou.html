@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheesh - User Credentials Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1><a href="index.html">Wheesh</a></h1>
+
+    <div id="typewriter-text-top" class="typewriter-row"></div>
+    <div id="typewriter-text-middle" class="typewriter-row"></div>
+
+    <script>
+        // JavaScript logic for typing animation
+        const newsentences = [
+            "> We will send the message to the person on the scheduled date. ",
+            "> Thank you for using Wheesh and have a nice day. :)"
+        ];
+        const topContainer = document.getElementById("typewriter-text-top");
+        const middleTextContainer = document.getElementById("typewriter-text-middle");
+
+        function typeSentence(sentence, targetContainer) {
+            let currentIndex = 0;
+            const interval = setInterval(function() {
+                if (currentIndex < sentence.length) {
+                    targetContainer.innerHTML += sentence.charAt(currentIndex);
+                    currentIndex++;
+                } else {
+                    clearInterval(interval); // Stop the interval when the sentence is fully typed
+                }
+            }, 50); // Adjust typing speed here
+        }
+
+        function type() {
+            typeSentence(newsentences[0], topContainer);
+            setTimeout(function() {
+                typeSentence(newsentences[1], middleTextContainer);
+            }, newsentences[0].length * 50 + 250); // Wait for 0.5 seconds after typing the first sentence
+        }
+
+        type(); // Call the type function to start typing the sentences
+    </script>
+</body>
+</html>
